@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <a href="/logout">Log out</a>
+</div>
+
+<ul>
+    <li>{{user.username}}</li>
+    <li>{{user.email}}</li>
+    <li>{{user.first_name}}</li>
+    <li>{{user.last_name}}</li>
+</ul>    
+<div>
+    {% if user.feedbacks %} 
+      <h2>Feedback list</h2>
+        <ul>
+            {% for feedback in user.feedbacks %}
+            <li>
+                {{feedback.title}}
+
+                <small>{{feedback.content}}</small>
+            
+                <a href="/feedback/{{feedback.id}}/update">Edit</a>
+                <form action="/feedback/{{feedback.id}}/delete" method="POST"style="display: inline">
+                <button>Delete Feedback</button>
+                </form>
+             
+            </li>
+            
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+    
+
+
+<p>
+   <a href="/users/{{user.username}}/feedback/add">Add Feedback</a> 
+</p>
+<p>
+   <form action="/users/{{user.username}}/delete" method="POST">
+    <button>Delete Account</button>
+   </form> 
+</p>
+
+
+
+{% endblock %}
